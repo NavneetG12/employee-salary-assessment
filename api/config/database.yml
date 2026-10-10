@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: acme_salary_development
+
+test:
+  <<: *default
+  database: acme_salary_test
+
+# In production the full connection string is supplied by the platform.
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
