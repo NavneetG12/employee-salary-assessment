@@ -4,3 +4,6 @@ node_modules/
 .env
 .env.*
 !.env.example
+web/dist/
+api/public/assets/
+api/public/index.html
