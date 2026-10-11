@@ -16,12 +16,21 @@ module Types
 
     field :filter_options, Types::FilterOptionsType, null: false
 
+    field :analytics, Types::AnalyticsType, null: false,
+          description: "Pay statistics in USD over current salaries. Excludes leavers unless statuses is given." do
+      argument :filter, Types::Inputs::EmployeeFilterInput, required: false
+    end
+
     def employees(filter: nil, sort_by:, sort_direction:, page:, per_page:)
       Employees::Search.new(filter: filter&.to_h, sort_by: sort_by, sort_direction: sort_direction, page: page, per_page: per_page)
     end
 
     def employee(id:)
       Employee.includes(:current_salary).find_by(id: id)
+    end
+
+    def analytics(filter: nil)
+      Analytics::Report.new(filter: filter&.to_h)
     end
 
     def filter_options
