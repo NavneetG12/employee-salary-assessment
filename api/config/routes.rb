@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
+  get "/exports/employees", to: "exports#employees", defaults: { format: :csv }
 
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
