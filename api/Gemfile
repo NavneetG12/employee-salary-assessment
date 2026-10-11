@@ -10,11 +10,13 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "graphql", "~> 2.4"
 gem "rack-cors"
 
+# Used by db:seed, which also runs in production to load the 10k demo org.
+gem "faker"
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "rspec-rails", "~> 7.1"
   gem "factory_bot_rails"
-  gem "faker"
 end
 
 group :development do

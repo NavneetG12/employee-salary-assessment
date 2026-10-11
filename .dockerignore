@@ -1,0 +1,12 @@
+.git
+**/node_modules
+web/dist
+api/log/*
+api/tmp/*
+api/storage/*
+api/public/assets
+api/app/views/spa/index.html
+docs
+*.md
+api/config/master.key
+api/config/credentials/*.key

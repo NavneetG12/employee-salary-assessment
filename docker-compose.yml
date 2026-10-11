@@ -1,0 +1,33 @@
+# Full stack locally with one command:  docker compose up --build
+# Then open http://localhost:3000 (10,000 employees are seeded on first boot).
+# If :3000 is busy:  APP_PORT=3100 docker compose up --build
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: acme
+      POSTGRES_PASSWORD: acme
+      POSTGRES_DB: acme_salary
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U acme -d acme_salary"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      DATABASE_URL: postgres://acme:acme@db:5432/acme_salary
+      SECRET_KEY_BASE: local-dev-only-not-a-secret-0123456789abcdef0123456789abcdef
+      RAILS_FORCE_SSL: "false"
+      SEED_ON_BOOT: "1"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

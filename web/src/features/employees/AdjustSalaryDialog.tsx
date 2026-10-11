@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useMutation } from '@apollo/client/react'
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, InputAdornment, MenuItem, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, InputAdornment, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import type { EmployeeQuery, SalaryReasonEnum } from '@/gql/graphql'
 import { formatChange, formatDate, formatMoney, REASON_LABELS, todayIso } from '@/lib/format'
 import { camel, errorsByPath } from '@/lib/errors'
@@ -80,7 +80,8 @@ export function AdjustSalaryDialog({ open, onClose, employee }: Props) {
   const field = (name: keyof FormState) => ({ value: form[name], onChange: set(name), error: Boolean(errors[name]), helperText: errors[name] || undefined, fullWidth: true })
 
   return (
-    <Dialog open={open} onClose={loading ? undefined : onClose} maxWidth="sm" fullWidth component="form" noValidate onSubmit={handleSubmit}>
+    <Dialog open={open} onClose={loading ? undefined : onClose} maxWidth="sm" fullWidth>
+      <Box component="form" noValidate onSubmit={handleSubmit}>
       <DialogTitle>Adjust salary</DialogTitle>
       <DialogContent dividers>
         {current && (
@@ -128,6 +129,7 @@ export function AdjustSalaryDialog({ open, onClose, employee }: Props) {
           <Button type="submit" variant="contained" disabled={loading}>{loading ? 'Saving…' : 'Record change'}</Button>
         </Stack>
       </DialogActions>
+      </Box>
     </Dialog>
   )
 }

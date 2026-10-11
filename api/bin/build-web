@@ -1,0 +1,11 @@
+#!/bin/bash -e
+# Builds the React app and places it where Rails serves it in production:
+#   hashed assets -> public/assets, index.html -> app/views/spa/index.html
+cd "$(dirname "$0")/../../web"
+npm ci --silent
+npm run build
+cd ../api
+rm -rf public/assets && mkdir -p public/assets app/views/spa
+cp -R ../web/dist/assets/. public/assets/
+cp ../web/dist/index.html app/views/spa/index.html
+echo "Web app built into api/public/assets and api/app/views/spa/index.html"

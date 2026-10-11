@@ -1,0 +1,17 @@
+# Standard Rails ignores (rails new was run with --skip-git, so this was added by hand)
+/.bundle
+/log/*
+!/log/.keep
+/tmp/*
+!/tmp/.keep
+!/tmp/pids
+/tmp/pids/*
+!/tmp/pids/.keep
+/storage/*
+!/storage/.keep
+/public/assets
+/app/views/spa/index.html
+/config/master.key
+/config/credentials/*.key
+.byebug_history
+.env*

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useMutation } from '@apollo/client/react'
 import {
-  Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, InputAdornment, MenuItem, TextField, Typography,
+  Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, InputAdornment, MenuItem, TextField, Typography,
 } from '@mui/material'
 import type { EmployeeInput, EmployeeQuery, GenderEnum, EmployeeStatusEnum } from '@/gql/graphql'
 import { GENDER_LABELS, STATUS_LABELS, todayIso } from '@/lib/format'
@@ -143,7 +143,8 @@ export function EmployeeFormDialog({ open, onClose, onSaved, employee }: Props) 
   const field = (name: keyof FormState) => ({ value: form[name], onChange: set(name), error: Boolean(errors[name]), helperText: errors[name] || undefined, fullWidth: true })
 
   return (
-    <Dialog open={open} onClose={saving ? undefined : onClose} maxWidth="md" fullWidth component="form" noValidate onSubmit={handleSubmit}>
+    <Dialog open={open} onClose={saving ? undefined : onClose} maxWidth="md" fullWidth>
+      <Box component="form" noValidate onSubmit={handleSubmit}>
       <DialogTitle>{creating ? 'Add employee' : `Edit ${employee.fullName}`}</DialogTitle>
       <DialogContent dividers>
         {networkError && <Alert severity="error" sx={{ mb: 2 }}>{networkError.message}</Alert>}
@@ -217,6 +218,7 @@ export function EmployeeFormDialog({ open, onClose, onSaved, employee }: Props) 
         <Button onClick={onClose} color="inherit" disabled={saving}>Cancel</Button>
         <Button type="submit" variant="contained" disabled={saving}>{saving ? 'Saving…' : creating ? 'Create employee' : 'Save changes'}</Button>
       </DialogActions>
+      </Box>
     </Dialog>
   )
 }
