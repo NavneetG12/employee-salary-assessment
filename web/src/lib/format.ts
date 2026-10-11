@@ -10,7 +10,9 @@ export function formatMoney(amount: number, currency: string): string {
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
     currencyDisplay: ZERO_DECIMAL_CURRENCIES.has(currency) ? 'code' : 'symbol',
-  }).format(amount)
+  })
+    .format(amount)
+    .replace(/\u00a0/g, ' ')
 }
 
 export function formatUsd(amount: number): string {

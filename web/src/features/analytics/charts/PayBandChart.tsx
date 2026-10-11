@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { formatNumber, formatUsd, formatUsdCompact } from '@/lib/format'
 import { CHROME, INK, SEQUENTIAL, SEQUENTIAL_MUTED } from '../palette'
 import { ChartTooltip } from './ChartTooltip'
@@ -75,9 +75,6 @@ export function PayBandChart({ bands }: { bands: PayBand[] }) {
           />
         </Box>
       )}
-      <Typography variant="caption" color="text.secondary" sx={{ position: 'absolute', right: 0, bottom: -4 }}>
-        Bar = 25th–75th percentile · tick = median · line = min–max
-      </Typography>
     </Box>
   )
 }

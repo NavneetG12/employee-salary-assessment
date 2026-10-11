@@ -70,7 +70,7 @@ export function AnalyticsPage() {
           <Grid size={{ xs: 12, lg: 7 }}>
             <ChartCard
               title="Pay bands by level"
-              subtitle="Where salaries sit within each level"
+              subtitle="Bar = 25th–75th percentile · tick = median · line = min–max"
               height={360}
               table={{
                 columns: [

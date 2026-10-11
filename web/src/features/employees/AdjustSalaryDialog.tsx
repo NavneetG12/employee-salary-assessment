@@ -80,7 +80,7 @@ export function AdjustSalaryDialog({ open, onClose, employee }: Props) {
   const field = (name: keyof FormState) => ({ value: form[name], onChange: set(name), error: Boolean(errors[name]), helperText: errors[name] || undefined, fullWidth: true })
 
   return (
-    <Dialog open={open} onClose={loading ? undefined : onClose} maxWidth="sm" fullWidth component="form" onSubmit={handleSubmit}>
+    <Dialog open={open} onClose={loading ? undefined : onClose} maxWidth="sm" fullWidth component="form" noValidate onSubmit={handleSubmit}>
       <DialogTitle>Adjust salary</DialogTitle>
       <DialogContent dividers>
         {current && (
