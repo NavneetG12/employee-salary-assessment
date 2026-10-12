@@ -2,6 +2,8 @@
 
 Web-based salary management for an organisation of 10,000 employees across 10 countries, built for the HR manager who today lives in spreadsheets. Search and manage every employee's salary history, and answer "how does ACME pay people?" from live data normalised to USD.
 
+**Live demo:** https://web-production-1cc3.up.railway.app (Railway free trial; seeded with the 10,000-employee data set)
+
 **Stack:** Ruby on Rails 8 (API-only) · GraphQL (graphql-ruby) · PostgreSQL · React 19 + TypeScript · Apollo Client 4 · MUI 9 · Recharts · RSpec · Vitest.
 
 | Directory | Pay analytics |
@@ -68,7 +70,20 @@ Both suites are deterministic (seeded Faker, no network, no sleeps) and run in a
 
 ## Deployment
 
-`render.yaml` is a Render Blueprint: a Docker web service plus a free Postgres instance, with `SEED_ON_BOOT=1` so the demo data loads on the first start. Any platform that runs a Dockerfile and provides `DATABASE_URL` and `SECRET_KEY_BASE` works the same way (Fly.io, Railway, ECS). The container runs `db:prepare` on boot.
+The demo runs on Railway at https://web-production-1cc3.up.railway.app. It was created entirely from the CLI, with no GitHub integration:
+
+```bash
+railway init --name acme-salary-manager
+railway add --database postgres
+railway add --service web \
+  --variables 'DATABASE_URL=${{Postgres.DATABASE_URL}}' \
+  --variables "SECRET_KEY_BASE=$(openssl rand -hex 64)" \
+  --variables SEED_ON_BOOT=1 --variables BINDING=0.0.0.0 --variables RAILS_LOG_TO_STDOUT=1
+railway up --ci --service web          # builds the root Dockerfile and deploys it
+railway domain --service web --port 8080   # Railway injects PORT=8080; Puma listens on $PORT
+```
+
+`railway.json` sets the Dockerfile builder, the `/up` health check and the restart policy. `render.yaml` is the equivalent Render Blueprint (Docker web service plus free Postgres). Any platform that runs a Dockerfile and provides `DATABASE_URL` and `SECRET_KEY_BASE` works the same way: the container runs `db:prepare` on boot and, with `SEED_ON_BOOT=1`, loads the demo data once (10,000 employees in about 4 s on Railway's shared vCPU).
 
 ## Regenerating GraphQL types
 

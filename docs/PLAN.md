@@ -17,4 +17,6 @@ Incremental commits, one concern each. Checked items are committed and green.
 - [x] Deployment: single Docker image (Rails serves API + built SPA from `public/`), `render.yaml`, `docker-compose.yml`
 - [x] Docs: architecture, decisions/trade-offs, performance notes, AI usage log; README with run instructions
 
-Remaining for the author: deploy via `render.yaml` (or any Docker host) and record the demo video.
+- [x] Deployed to Railway (Docker build from the CLI, Postgres add-on, seeded on first boot): https://web-production-1cc3.up.railway.app
+
+Remaining for the author: record the demo video.
